@@ -5,7 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { nanoid } from "nanoid";
- 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
  
@@ -64,8 +64,8 @@ export function serveStatic(app) {
   // Serve the static files
   app.use(express.static(distPath));
  
-  // Serve index.html for any other path
-  app.use("*", (req, res) => {
+  // For any other request, send the index.html
+  app.get("*", (req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

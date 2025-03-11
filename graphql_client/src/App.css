@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Sticky headers and filter row */
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa; /* Light background for headers */
+  z-index: 2; /* Ensure it stays above the content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+}
+
+thead tr:nth-child(2) th {
+  top: 30px; /* Adjust the top offset for the second row (filter) */
+  z-index: 1; /* Ensure filter row appears under the column names */
+}
+
+/* Styling for the table rows */
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Add some padding and borders for better readability */
+th, td {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+}
+
+/* Sticky table container to avoid overflow */
+.container {
+  max-height: 1000px;
+  overflow-y: auto;
+}

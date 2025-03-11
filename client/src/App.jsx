@@ -1,9 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_MATCHED_MATERIALS } from './queries';
-import { ApolloProvider } from '@apollo/client';
-import client from './ApolloClient';
-
 function App() {
   const { loading, error, data } = useQuery(GET_MATCHED_MATERIALS);
 
@@ -47,7 +44,7 @@ function App() {
   );
 }
 
-// Wrap with ApolloProvider for the main export
+export default App;
 function AppWrapper() {
   return (
     <ApolloProvider client={client}>

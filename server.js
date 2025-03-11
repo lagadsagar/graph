@@ -297,55 +297,15 @@ async function startServer() {
 
   app.use("/graphql", expressMiddleware(server));
 
-  // Serve the frontend in production
+  // Import and use the Vite module
   if (process.env.NODE_ENV === 'production') {
-    const clientBuildPath = path.join(__dirname, 'dist/public');
-
-    // Serve static files from the React app build
-    app.use(express.static(clientBuildPath));
-
-    // For any request that doesn't match an API route, serve the React app
-    app.get('*', (req, res) => {
-      if (req.url.startsWith('/graphql')) return; // Skip GraphQL requests
-      res.sendFile(path.join(clientBuildPath, 'index.html'));
-    });
+    // In production, serve static files
+    const { serveStatic } = await import('./vite.js');
+    serveStatic(app);
   } else {
-    // In development, use Vite as middleware with HMR
-    const { createServer } = await import('vite');
-    const vite = await createServer({
-      configFile: path.resolve(__dirname, 'vite.config.js'),
-      server: { 
-        middlewareMode: true,
-        hmr: {
-          server: app,
-          protocol: 'ws',
-          host: '0.0.0.0',
-          clientPort: 443
-        }
-      }
-    });
-
-    // Use Vite's middleware
-    app.use(vite.middlewares);
-    
-    // Handle all routes for the SPA
-    app.get('*', (req, res, next) => {
-      if (req.url.startsWith('/graphql')) {
-        return next(); // Skip for GraphQL requests
-      }
-      
-      // Transform index.html with Vite
-      const indexHtml = path.join(__dirname, 'client/index.html');
-      
-      vite.transformIndexHtml(req.url, fs.readFileSync(indexHtml, 'utf-8'))
-        .then(html => {
-          res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-        })
-        .catch(err => {
-          console.error('Vite transform error:', err);
-          next(err);
-        });
-    });
+    // In development, use Vite middleware with HMR
+    const { setupVite } = await import('./vite.js');
+    await setupVite(app, app); // Pass app as both express app and server
   }
 
 

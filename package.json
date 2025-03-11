@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "node setup.js && npm run client:install",
-    "start": "NODE_ENV=production node index.js",
-    "dev": "node index.js",
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "node server/server.js",
     "client:install": "cd client && npm install",
     "client:build": "vite build",
     "client:dev": "cd client && vite"

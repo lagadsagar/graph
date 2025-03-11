@@ -304,11 +304,11 @@ async function startServer() {
   // Import and use the Vite module
   if (process.env.NODE_ENV === 'production') {
     // In production, serve static files
-    const { serveStatic } from './vite.js';
+    const { serveStatic } = await import('./vite.js');
     serveStatic(app);
   } else {
     // In development, use Vite middleware with HMR
-    const { setupVite } from './vite.js';
+    const { setupVite } = await import('./vite.js');
     const httpServer = app.listen(8000, '0.0.0.0', () => {
       console.log("Server started at PORT 8000");
       console.log(`GraphQL API available at http://0.0.0.0:8000/graphql`);

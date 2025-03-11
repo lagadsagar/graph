@@ -1,16 +1,17 @@
+
 {
   "name": "graphql_application",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "node setup.js && npm run client:install",
-    "start": "NODE_ENV=production node server.js",
-    "dev": "node server.js",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "node index.js",
     "client:install": "cd client && npm install",
-    "client:build": "vite build --config vite.config.js",
-    "client:dev": "vite"
+    "client:build": "vite build",
+    "client:dev": "cd client && vite"
   },
   "keywords": [],
   "author": "",

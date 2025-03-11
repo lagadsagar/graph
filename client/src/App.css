@@ -1,49 +1,55 @@
+
 .App {
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.App-header {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Sticky headers and filter row */
-thead th {
-  position: sticky;
-  top: 0;
-  background-color: #f8f9fa; /* Light background for headers */
-  z-index: 2; /* Ensure it stays above the content */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+.App-header button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-thead tr:nth-child(2) th {
-  top: 30px; /* Adjust the top offset for the second row (filter) */
-  z-index: 1; /* Ensure filter row appears under the column names */
+.App-header button:hover {
+  background-color: #0055b3;
 }
 
-/* Styling for the table rows */
-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+h2 {
+  color: #333;
 }
 
-table tbody tr:hover {
-  background-color: #e9ecef;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* Add some padding and borders for better readability */
-th, td {
-  padding: 5px;
-  text-align: left;
-  border: 1px solid #ddd;
+li {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
 }
 
-th {
-  font-weight: bold;
+h3 {
+  margin-top: 0;
+  color: #0066cc;
 }
 
-/* Sticky table container to avoid overflow */
-.container {
-  max-height: 1000px;
-  overflow-y: auto;
+h4 {
+  margin-bottom: 5px;
 }

@@ -1,7 +1,10 @@
 
 // Add any setup logic here
-const { execSync } = require('child_process');
-const path = require('path');
+import { execSync } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 console.log('Setting up the application...');
 
@@ -10,7 +13,7 @@ try {
   console.log('Building the client application...');
   execSync('vite build', { 
     stdio: 'inherit',
-    cwd: path.resolve(__dirname, '..')  // Run from the parent directory
+    cwd: path.resolve(__dirname)  // Run from the current directory
   });
   
   console.log('Setup completed successfully!');

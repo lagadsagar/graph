@@ -5,7 +5,7 @@ import path from "path";
  
 export default defineConfig({
   plugins: [react()],
-  root: path.resolve("graphql_client"),
+  root: path.resolve("client"),
   build: {
     outDir: path.resolve("dist/public"),
     emptyOutDir: true,

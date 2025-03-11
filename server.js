@@ -299,7 +299,7 @@ async function startServer() {
 
   // Serve the frontend in production
   if (process.env.NODE_ENV === 'production') {
-    const clientBuildPath = path.join(__dirname, 'graphql_client', 'dist');
+    const clientBuildPath = path.join(__dirname, 'dist/public');
 
     // Serve static files from the React app build
     app.use(express.static(clientBuildPath));
@@ -335,7 +335,7 @@ async function startServer() {
       }
       
       // Transform index.html with Vite
-      const indexHtml = path.join(__dirname, 'graphql_client/index.html');
+      const indexHtml = path.join(__dirname, 'client/index.html');
       
       vite.transformIndexHtml(req.url, fs.readFileSync(indexHtml, 'utf-8'))
         .then(html => {

@@ -20,12 +20,19 @@ const normalize = (str) => {
 };
 
 // connect to MongoDB and start the server
-mongoose.connect('mongodb://localhost:27017/graphql', { useNewUrlParser: true, useUnifiedTopology: true })
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/graphql';
+
+// Try to connect to MongoDB, but start server regardless to allow frontend development
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
     startServer();
   })
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .catch((err) => {
+    console.log('MongoDB connection error:', err);
+    console.log('Starting server without MongoDB connection...');
+    startServer();
+  });
 
 // Build raw materials hierarchy iteratively (non-recursive)
 const buildRmHierarchy = (rawMaterials) => {

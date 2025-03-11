@@ -1,21 +1,21 @@
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-
-// https://vitejs.dev/config/
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+ 
 export default defineConfig({
   plugins: [react()],
-  root: path.resolve(__dirname, 'graphql_client'),
+  root: path.resolve("graphql_client"),
   build: {
-    outDir: path.resolve(__dirname, 'graphql_client/dist'),
+    outDir: path.resolve("dist/public"),
+    emptyOutDir: true,
   },
   server: {
-    port: 3000,
-    host: '0.0.0.0', // Make the server accessible from outside
+    middlewareMode: true,
     hmr: {
-      // For development in Replit
-      clientPort: 443
+      host: '0.0.0.0',
+      clientPort: 443,
+      protocol: 'ws'
     }
-  },
+  }
 });

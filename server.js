@@ -313,18 +313,39 @@ async function startServer() {
     // In development, use Vite as middleware with HMR
     const { createServer } = await import('vite');
     const vite = await createServer({
-      configFile: path.resolve(__dirname, '../vite.config.js'),
+      configFile: path.resolve(__dirname, 'vite.config.js'),
       server: { 
         middlewareMode: true,
         hmr: {
           server: app,
           protocol: 'ws',
-          host: '0.0.0.0'
+          host: '0.0.0.0',
+          clientPort: 443
         }
       }
     });
 
+    // Use Vite's middleware
     app.use(vite.middlewares);
+    
+    // Handle all routes for the SPA
+    app.get('*', (req, res, next) => {
+      if (req.url.startsWith('/graphql')) {
+        return next(); // Skip for GraphQL requests
+      }
+      
+      // Transform index.html with Vite
+      const indexHtml = path.join(__dirname, 'graphql_client/index.html');
+      
+      vite.transformIndexHtml(req.url, fs.readFileSync(indexHtml, 'utf-8'))
+        .then(html => {
+          res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+        })
+        .catch(err => {
+          console.error('Vite transform error:', err);
+          next(err);
+        });
+    });
   }
 
 
